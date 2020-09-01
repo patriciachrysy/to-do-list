@@ -29,7 +29,9 @@ const navbarDom = () => {
     const iconPie = document.createElement('i');
     iconPie.className = 'las la-chart-pie';
     pie.appendChild(iconPie);
-    pie.innerHTML = 10;
+    const text = document.createElement('span');
+    text.innerText = 10;
+    pie.appendChild(text)
     nav.appendChild(pie);
     navBar.appendChild(nav);
 
@@ -37,4 +39,4 @@ const navbarDom = () => {
 
 };
 
-export default navbarDom
+export default navbarDom();
