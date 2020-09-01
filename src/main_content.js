@@ -1,6 +1,7 @@
 const mainContentDom = () => {
     const mainContent = document.createElement('div');
     mainContent.className = 'main-content';
+    mainContent.id = 'container';
     const mainHeader = document.createElement('div');
     mainHeader.className = 'header';
 

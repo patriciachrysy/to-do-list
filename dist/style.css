@@ -143,3 +143,33 @@ body, p{
     padding: 5px 20px;
     border-radius: 5px;
 }
+
+.main-content form {
+    width: 60%;
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-self: center;
+    font-size: 18px;
+}
+
+.main-content form input {
+    padding: 10px 20px;
+    font-size: 18px;
+    background: none;
+    color: #1289A7;
+    border: 1px solid #1289A7;
+    font-family: inherit;
+}
+
+.main-content form input[type='submit'] {
+    border-radius: 5px;
+    width: 20%;
+    align-self: center;
+}
+
+.main-content form input[type='submit']:hover {
+    background-color: #1289A7;
+    color: white;
+}

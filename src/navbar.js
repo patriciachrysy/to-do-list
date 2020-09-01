@@ -20,6 +20,7 @@ const navbarDom = () => {
     const nav = document.createElement('div');
     nav.className = 'nav';
     const plus = document.createElement('a');
+    plus.id = "addForm"
     const icon = document.createElement('i');
     icon.className = 'las la-plus';
     plus.appendChild(icon);
