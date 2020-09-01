@@ -42,6 +42,13 @@ const mainContentDom = () => {
     const mainIcons2 = document.createElement('i');
     mainIcons2.className = 'las la-trash';
 
+    const addTask = document.createElement('div')
+    addTask.className = 'more-task';
+    const addTaskLink = document.createElement('a')
+    addTaskLink.innerHTML = `<i class="las la-plus"></i> Add Task`; 
+    
+    addTask.appendChild(addTaskLink);
+
     mainLink2.appendChild(mainIcons2);
     mainLink.appendChild(mainIcons);
     mainActions.appendChild(mainLink2)
@@ -50,6 +57,7 @@ const mainContentDom = () => {
     subTask.appendChild(mainActions);
     mainTask.appendChild(subTask);
     mainContent.appendChild(mainTask);
+    mainContent.appendChild(addTask);
     
     return mainContent;
 };
