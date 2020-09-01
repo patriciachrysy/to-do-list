@@ -29,6 +29,7 @@ body, p{
     color: rgb(145, 143, 143);
     font-size: 16px;
     font-family: inherit;
+    border-radius: 5px;
 }
 
 .nav {
@@ -109,7 +110,7 @@ body, p{
     align-items: center;
 }
 
-.header a, .actions a {
+.header a, .actions a, .more-task a {
     text-decoration: none;
     color: #1289A7;
     font-size: 25px;
@@ -133,4 +134,12 @@ body, p{
 
 .infos small {
     margin-left: 20px;
+}
+
+.more-task {
+    margin: 30px 0;
+    align-self: center;
+    border: 1px solid #1289A7;
+    padding: 5px 20px;
+    border-radius: 5px;
 }
