@@ -15,6 +15,7 @@ const content = document.getElementById('content');
 content.appendChild(nav);
 
 const centerContent = document.createElement('div');
+centerContent.id = 'center'
 centerContent.className = 'center-content';
 centerContent.appendChild(sidebarDom(projects));
 centerContent.appendChild(mainContentDom(projects[0]));
@@ -28,7 +29,10 @@ const manageForm = () => {
         let project = new Project(valid);
         storeProject(project);
         const maincontent = document.getElementById('container');
+        const sidebar = document.getElementById('project-nav');
         centerContent.removeChild(maincontent);
+        centerContent.removeChild(sidebar);
+        centerContent.appendChild(sidebarDom(getProjects()))
         centerContent.appendChild(mainContentDom(project));
     }else {
         alert('Please provide a name for the project');
@@ -46,7 +50,12 @@ addProjectForm.addEventListener('click', () => {
     
 })
 
-
+const loadProject = (position) => {
+    let centerContent = document.getElementById('center');
+    let mainContent = document.getElementById('container');
+    centerContent.removeChild(mainContent);
+    centerContent.appendChild(mainContentDom(projects[position]));
+}
 
 
 
