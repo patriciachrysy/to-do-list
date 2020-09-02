@@ -1,5 +1,5 @@
 import navBar from "./navbar";
-import sideBar from "./sidebar";
+import {sidebarDom} from "./sidebar";
 import {mainContentDom} from "./main_content";
 import projectForm from './project_form';
 import {handleProjectForm} from './form_handler';
@@ -14,8 +14,8 @@ content.appendChild(nav);
 
 const centerContent = document.createElement('div');
 centerContent.className = 'center-content';
-centerContent.appendChild(sideBar);
 const projects = getProjects();
+centerContent.appendChild(sidebarDom(projects));
 centerContent.appendChild(mainContentDom(projects[0]));
 content.appendChild(centerContent);
 

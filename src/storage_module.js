@@ -25,4 +25,9 @@ const storeProject = (project) => {
     console.log(getProjects());
 }
 
-export {initProjectStorage, getProjects, storeProject};
+const countProjects = () => {
+    let projects = getProjects();
+    return projects.length;
+}
+
+export {initProjectStorage, getProjects, storeProject, countProjects};
