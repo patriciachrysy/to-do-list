@@ -25,9 +25,15 @@ const storeProject = (project) => {
     console.log(getProjects());
 }
 
+const updateProject = (project,position) => {
+    let projects = getProjects();
+    projects[position] = project
+    localStorage.setItem('projects', JSON.stringify(projects));
+}
+
 const countProjects = () => {
     let projects = getProjects();
     return projects.length;
 }
 
-export {initProjectStorage, getProjects, storeProject, countProjects};
+export {initProjectStorage, getProjects, storeProject, countProjects, updateProject};

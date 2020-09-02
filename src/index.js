@@ -2,9 +2,11 @@ import {navbarDom} from "./navbar";
 import {sidebarDom} from "./sidebar";
 import {mainContentDom} from "./main_content";
 import projectForm from './project_form';
-import {handleProjectForm} from './form_handler';
+import taskForm from './task_form';
+import {handleProjectForm, handleTaskForm} from './form_handler';
 import Project from './project';
-import {initProjectStorage, getProjects, storeProject} from './storage_module';
+import Task from './task'
+import {initProjectStorage, getProjects, storeProject, updateProject} from './storage_module';
 
 initProjectStorage();
 
@@ -23,6 +25,9 @@ content.appendChild(centerContent);
 
 const addProjectForm = document.getElementById('addForm');
 
+
+console.log(document.querySelectorAll('#add-task'))
+
 const manageForm = () => {
     let valid = handleProjectForm('project-form');
     if (valid){
@@ -33,6 +38,22 @@ const manageForm = () => {
         centerContent.removeChild(maincontent);
         centerContent.removeChild(sidebar);
         centerContent.appendChild(sidebarDom(getProjects()))
+        centerContent.appendChild(mainContentDom(project));
+        switchProject();
+    }else {
+        alert('Please provide a name for the project');
+    } 
+}
+
+const manageTaskForm = (position) => {
+    let valid = handleTaskForm('task-form');
+    if (valid){
+        let task = new Task(valid.title, valid.description, valid.dueDate, valid.priority, false);
+        let project = projects[position]
+        project._tasks.push(task)
+        updateProject(project, position)
+        const maincontent = document.getElementById('container');
+        centerContent.removeChild(maincontent);
         centerContent.appendChild(mainContentDom(project));
         switchProject();
     }else {
@@ -51,12 +72,31 @@ addProjectForm.addEventListener('click', () => {
     
 })
 
+const addTaskEvent = (position) => {
+        const addTaskForm = document.getElementById('add-task')
+        addTaskForm.addEventListener('click', () => {
+        const mainContent = document.getElementById('container');
+        mainContent.innerHTML = '';
+        mainContent.appendChild(taskForm(position).mainHeader);
+        mainContent.appendChild(taskForm(position).form);
+    
+        const addTask = document.getElementById('addTask');
+        addTask.addEventListener('click', manageTaskForm);
+        
+    })
+} 
+addTaskEvent(0);
+
+
+
 const loadProject = (position) => {
     console.log('About to load the project');
     let mainContent = document.getElementById('container');
     centerContent.removeChild(mainContent);
     centerContent.appendChild(mainContentDom(projects[position]));
+    addTaskEvent(position);
 }
+
 
 const switchProject = () => {
     const projectNav = document.querySelectorAll('.project');

@@ -26,6 +26,7 @@ const mainContentDom = (project) => {
     mainContent.appendChild(mainTask);
 
     const addTask = document.createElement('div')
+    addTask.id = 'add-task'
     addTask.className = 'more-task';
     const addTaskLink = document.createElement('a')
     addTaskLink.innerHTML = `<i class="las la-plus"></i> Add Task`; 
