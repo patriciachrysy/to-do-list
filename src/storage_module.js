@@ -1,18 +1,27 @@
+import Project from './project';
+import Task from './task';
+
 const initProjectStorage = () => {
     if(!localStorage.getItem('projects')){
-        localStorage.setItem('projects', JSON.stringify([]));
+        let projects = new Array;
+        let defaultProject = new Project('Example Project');
+        let defaultTask = new Task('Example task', 'This is a default task', new Date, 'High', false);
+        defaultProject.addtask(defaultTask);
+        projects.push(defaultProject);
+        localStorage.setItem('projects', JSON.stringify(projects));
+        console.log(getProjects());
     }
 }
 
 const getProjects = () => {
-    projects = JSON.parse(localStorage.getItem('projects'));
+    let projects = JSON.parse(localStorage.getItem('projects'));
     return projects;
 }
 
 const storeProject = (project) => {
     let projects = getProjects();
     projects.push(project);
-    localStorage.setItem(project, JSON.stringify(projects));
+    localStorage.setItem('projects', JSON.stringify(projects));
     console.log(getProjects());
 }
 

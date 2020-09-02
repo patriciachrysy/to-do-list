@@ -1,4 +1,4 @@
-const mainContentDom = () => {
+const mainContentDom = (project) => {
     const mainContent = document.createElement('div');
     mainContent.className = 'main-content';
     mainContent.id = 'container';
@@ -6,7 +6,7 @@ const mainContentDom = () => {
     mainHeader.className = 'header';
 
     const headerOne = document.createElement('h1');
-    headerOne.innerText = 'Project 1';
+    headerOne.innerText = project._name;
     const iconLink = document.createElement('a')
     const icon = document.createElement('i');
     icon.className = 'las la-pencil-alt';
@@ -18,30 +18,12 @@ const mainContentDom = () => {
 
     const mainTask = document.createElement('div');
     mainTask.className = 'tasks';
-    const subTask = document.createElement('div');
-    subTask.className = 'task';
-    const mainInfo = document.createElement('div');
-    mainInfo.className = 'infos';
-    
 
-    const paragraph = document.createElement('p')
-    paragraph.innerHTML = `<i class="lar la-circle"></i> Return the book to library `
-    const priority = document.createElement('small');
-    priority.innerText = 'important';
-    mainInfo.appendChild(paragraph);
-    mainInfo.appendChild(priority);
-
-    const mainActions = document.createElement('div');
-    mainActions.className = 'actions';
-    const mainLink = document.createElement('a');
-    const mainIcons = document.createElement('i');
-    mainIcons.className = 'las la-check-circle';
-
-
-
-    const mainLink2 = document.createElement('a');
-    const mainIcons2 = document.createElement('i');
-    mainIcons2.className = 'las la-trash';
+    project._tasks.forEach(element => {
+        let task = displayTask(element);
+        mainTask.appendChild(task);
+    });
+    mainContent.appendChild(mainTask);
 
     const addTask = document.createElement('div')
     addTask.className = 'more-task';
@@ -49,18 +31,43 @@ const mainContentDom = () => {
     addTaskLink.innerHTML = `<i class="las la-plus"></i> Add Task`; 
     
     addTask.appendChild(addTaskLink);
-
-    mainLink2.appendChild(mainIcons2);
-    mainLink.appendChild(mainIcons);
-    mainActions.appendChild(mainLink2)
-    mainActions.appendChild(mainLink);
-    subTask.appendChild(mainInfo);
-    subTask.appendChild(mainActions);
-    mainTask.appendChild(subTask);
-    mainContent.appendChild(mainTask);
     mainContent.appendChild(addTask);
     
     return mainContent;
 };
 
-export default mainContentDom();
+const displayTask = (task) => {
+
+    const subTask = document.createElement('div');
+    subTask.className = 'task';
+
+    const mainInfo = document.createElement('div');
+    mainInfo.className = 'infos';
+    const paragraph = document.createElement('p')
+    paragraph.innerHTML = `<i class="lar la-circle"></i> ${task._title} `
+    const priority = document.createElement('small');
+    priority.innerText = task._priority;
+    mainInfo.appendChild(paragraph);
+    mainInfo.appendChild(priority);
+    subTask.appendChild(mainInfo);
+
+    const mainActions = document.createElement('div');
+    mainActions.className = 'actions';
+    const mainLink = document.createElement('a');
+    const mainIcons = document.createElement('i');
+    mainIcons.className = 'las la-check-circle';
+    mainLink.appendChild(mainIcons);
+    const mainLink2 = document.createElement('a');
+    const mainIcons2 = document.createElement('i');
+    mainIcons2.className = 'las la-trash';
+    mainLink2.appendChild(mainIcons2);
+
+    mainActions.appendChild(mainLink);
+    mainActions.appendChild(mainLink2);
+    subTask.appendChild(mainActions);
+
+    return subTask;
+
+}
+
+export {mainContentDom};

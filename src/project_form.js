@@ -15,7 +15,7 @@ const loadProjectForm = () => {
     textFiled.placeholder = 'Project name'
     form.appendChild(textFiled)
     const subField = document.createElement('input')
-    subField.type = 'submit'
+    subField.type = 'button'
     subField.value = 'Create'
     subField.id = 'addProject'
     form.appendChild(subField)

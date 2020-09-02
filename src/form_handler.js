@@ -1,4 +1,4 @@
-export const handleProjectForm = (formId) => {
+const handleProjectForm = (formId) => {
     const form = document.getElementById(formId);
     let info = null;
     if(form.elements.namedItem('name').value){
@@ -6,3 +6,5 @@ export const handleProjectForm = (formId) => {
     }
     return info;
 };
+
+export {handleProjectForm};

@@ -1,4 +1,4 @@
-export class Task {
+class Task {
     constructor(title, description, dueDate, priority, status){
         this.title = title
         this.description = description
@@ -8,42 +8,44 @@ export class Task {
     }
 
     get title() {
-        return this.title
+        return this._title
     }
 
     set title(value) {
-        this.title = value
+        this._title = value
     }
 
     get description() {
-        return this.description
+        return this._description
     }
 
     set description(value) {
-        this.description = value
+        this._description = value
     }
 
     get dueDate() {
-        return this.dueDate
+        return this._dueDate
     }
 
     set dueDate(value) {
-        this.dueDate = value
+        this._dueDate = value
     }
     
     get priority() {
-        return this.priority
+        return this._priority
     }
 
     set priority(value) {
-        this.priority = value
+        this._priority = value
     }
     
     get status() {
-        return this.status
+        return this._status
     }
 
     set status(value) {
-        this.status = value
+        this._status = value
     }
 }
+
+export default Task;
