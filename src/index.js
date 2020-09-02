@@ -51,11 +51,20 @@ addProjectForm.addEventListener('click', () => {
 })
 
 const loadProject = (position) => {
-    let centerContent = document.getElementById('center');
     let mainContent = document.getElementById('container');
     centerContent.removeChild(mainContent);
     centerContent.appendChild(mainContentDom(projects[position]));
 }
+
+
+const projectNav = document.querySelectorAll('.project');
+console.log(projectNav);
+projectNav.forEach(element => {
+    element.addEventListener('click', loadProject(element.getAttribute('data-position')))
+});
+
+
+
 
 
 

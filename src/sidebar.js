@@ -1,5 +1,3 @@
-import {mainContentDom} from "./main_content";
-
 const sidebarDom = (allProjects) => {
     const sideBar = document.createElement('div');
     sideBar.id = 'project-nav'
@@ -15,7 +13,7 @@ const sidebarDom = (allProjects) => {
 
     allProjects.forEach(element => {
         let project = document.createElement('div');
-        project.setAttribute('onclick', `loadProject(${allProjects.indexOf(element)})`)
+        project.setAttribute('data-position', allProjects.indexOf(element))
         project.className = 'project';
         let icon = document.createElement('i');
         icon.className = 'lar la-circle';
@@ -32,7 +30,5 @@ const sidebarDom = (allProjects) => {
     return sideBar;
 
 };
-
-
 
 export {sidebarDom};
