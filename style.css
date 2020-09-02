@@ -146,7 +146,7 @@ body, p{
 
 .main-content form {
     width: 60%;
-    height: 30%;
+    height: 50%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -154,7 +154,7 @@ body, p{
     font-size: 18px;
 }
 
-.main-content form input {
+.main-content form input, .main-content form select {
     padding: 10px 20px;
     font-size: 18px;
     background: none;
@@ -173,3 +173,4 @@ body, p{
     background-color: #1289A7;
     color: white;
 }
+
