@@ -1,4 +1,4 @@
-import navBar from "./navbar";
+import {navbarDom} from "./navbar";
 import {sidebarDom} from "./sidebar";
 import {mainContentDom} from "./main_content";
 import projectForm from './project_form';
@@ -8,13 +8,14 @@ import {initProjectStorage, getProjects, storeProject} from './storage_module';
 
 initProjectStorage();
 
-const nav = navBar;
+const projects = getProjects();
+
+const nav = navbarDom(projects.length);
 const content = document.getElementById('content');
 content.appendChild(nav);
 
 const centerContent = document.createElement('div');
 centerContent.className = 'center-content';
-const projects = getProjects();
 centerContent.appendChild(sidebarDom(projects));
 centerContent.appendChild(mainContentDom(projects[0]));
 content.appendChild(centerContent);

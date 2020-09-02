@@ -1,6 +1,4 @@
-import {countProjects} from './storage_module';
-
-const navbarDom = () => {
+const navbarDom = (count) => {
     const navBar = document.createElement('div');
     navBar.className = 'nav-bar';
     const navLogo = document.createElement('div');
@@ -33,7 +31,7 @@ const navbarDom = () => {
     iconPie.className = 'las la-chart-pie';
     pie.appendChild(iconPie);
     const text = document.createElement('span');
-    text.innerText = ' '+countProjects();
+    text.innerText = ' '+count;
     pie.appendChild(text)
     nav.appendChild(pie);
     navBar.appendChild(nav);
@@ -42,4 +40,4 @@ const navbarDom = () => {
 
 };
 
-export default navbarDom();
+export {navbarDom};
