@@ -34,6 +34,7 @@ const manageForm = () => {
         centerContent.removeChild(sidebar);
         centerContent.appendChild(sidebarDom(getProjects()))
         centerContent.appendChild(mainContentDom(project));
+        switchProject();
     }else {
         alert('Please provide a name for the project');
     } 
@@ -51,17 +52,22 @@ addProjectForm.addEventListener('click', () => {
 })
 
 const loadProject = (position) => {
+    console.log('About to load the project');
     let mainContent = document.getElementById('container');
     centerContent.removeChild(mainContent);
     centerContent.appendChild(mainContentDom(projects[position]));
 }
 
+const switchProject = () => {
+    const projectNav = document.querySelectorAll('.project');
+    console.log(projectNav);
+    projectNav.forEach(element => {
+        element.addEventListener('click', () => loadProject(element.getAttribute('data-position')))
+    });
+}
 
-const projectNav = document.querySelectorAll('.project');
-console.log(projectNav);
-projectNav.forEach(element => {
-    element.addEventListener('click', loadProject(element.getAttribute('data-position')))
-});
+switchProject();
+
 
 
 
