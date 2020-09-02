@@ -51,4 +51,4 @@ const loadTaskForm = (position) => {
     return {mainHeader, form};
 
 }
-export default loadTaskForm();
+export {loadTaskForm};

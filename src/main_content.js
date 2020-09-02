@@ -20,7 +20,7 @@ const mainContentDom = (project) => {
     mainTask.className = 'tasks';
 
     project._tasks.forEach(element => {
-        let task = displayTask(element);
+        let task = displayTask(element, project._tasks.indexOf(element));
         mainTask.appendChild(task);
     });
     mainContent.appendChild(mainTask);
@@ -37,10 +37,11 @@ const mainContentDom = (project) => {
     return mainContent;
 };
 
-const displayTask = (task) => {
+const displayTask = (task, taskPos) => {
 
     const subTask = document.createElement('div');
     subTask.className = 'task';
+    subTask.setAttribute('data-task', taskPos)
 
     const mainInfo = document.createElement('div');
     mainInfo.className = 'infos';
@@ -54,15 +55,24 @@ const displayTask = (task) => {
 
     const mainActions = document.createElement('div');
     mainActions.className = 'actions';
+    const mainLink3 = document.createElement('a');
+    mainLink3.id = 'task-update'
+    const mainIcons3 = document.createElement('i');
+    mainIcons3.className = 'las la-pencil-alt';
+    mainLink3.appendChild(mainIcons3);
     const mainLink = document.createElement('a');
+    mainLink.id = 'task-status'
     const mainIcons = document.createElement('i');
     mainIcons.className = 'las la-check-circle';
     mainLink.appendChild(mainIcons);
     const mainLink2 = document.createElement('a');
+    mainLink2.id = 'task-delete'
     const mainIcons2 = document.createElement('i');
     mainIcons2.className = 'las la-trash';
     mainLink2.appendChild(mainIcons2);
 
+
+    mainActions.appendChild(mainLink3);
     mainActions.appendChild(mainLink);
     mainActions.appendChild(mainLink2);
     subTask.appendChild(mainActions);

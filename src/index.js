@@ -2,7 +2,7 @@ import {navbarDom} from "./navbar";
 import {sidebarDom} from "./sidebar";
 import {mainContentDom} from "./main_content";
 import projectForm from './project_form';
-import taskForm from './task_form';
+import {loadTaskForm} from './task_form';
 import {handleProjectForm, handleTaskForm} from './form_handler';
 import Project from './project';
 import Task from './task'
@@ -48,6 +48,7 @@ const manageForm = () => {
 const manageTaskForm = (position) => {
     let valid = handleTaskForm('task-form');
     if (valid){
+        console.log(position);
         let task = new Task(valid.title, valid.description, valid.dueDate, valid.priority, false);
         let project = projects[position]
         project._tasks.push(task)
@@ -57,7 +58,7 @@ const manageTaskForm = (position) => {
         centerContent.appendChild(mainContentDom(project));
         switchProject();
     }else {
-        alert('Please provide a name for the project');
+        alert('Please provide provide all task informations');
     } 
 }
 
@@ -77,11 +78,11 @@ const addTaskEvent = (position) => {
         addTaskForm.addEventListener('click', () => {
         const mainContent = document.getElementById('container');
         mainContent.innerHTML = '';
-        mainContent.appendChild(taskForm(position).mainHeader);
-        mainContent.appendChild(taskForm(position).form);
+        mainContent.appendChild(loadTaskForm(position).mainHeader);
+        mainContent.appendChild(loadTaskForm(position).form);
     
         const addTask = document.getElementById('addTask');
-        addTask.addEventListener('click', manageTaskForm);
+        addTask.addEventListener('click', () => manageTaskForm(position));
         
     })
 } 
@@ -95,7 +96,29 @@ const loadProject = (position) => {
     centerContent.removeChild(mainContent);
     centerContent.appendChild(mainContentDom(projects[position]));
     addTaskEvent(position);
+    addTaskDeletionEvent(position);
 }
+
+const deleteTask = (taskPos, projectPos) => {
+    let project = projects[projectPos];
+    project._tasks.splice(taskPos, 1);
+    updateProject(project, projectPos);
+    const maincontent = document.getElementById('container');
+    centerContent.removeChild(maincontent);
+    centerContent.appendChild(mainContentDom(project));
+    switchProject();
+}
+
+const addTaskDeletionEvent = (position) => {
+    let project = projects[position];
+    if(project._tasks.length > 0){ 
+        const deleteButton = document.getElementById('task-delete');
+        let taskPosition = deleteButton.parentElement.parentElement.getAttribute('data-task');
+        addEventListener('click', () => deleteTask(taskPosition, position));
+    }
+}
+
+addTaskDeletionEvent(0);
 
 
 const switchProject = () => {
