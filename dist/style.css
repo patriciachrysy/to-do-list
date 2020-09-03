@@ -129,7 +129,7 @@ body, p{
     display: flex;
     justify-content: space-between;
     align-content: center;
-    padding: 20px 0;
+    padding: 20px 5px;
     margin: 5px 0;
     border-bottom: 1px solid #1289A7;
     font-size: 18px;
@@ -183,7 +183,13 @@ body, p{
     border-radius: 5px;
 }
 
-.green-bg a {
+.green-bg a, .red-bg a {
     color: white;
+}
+
+.red-bg {
+    background-color: #ED4C67;
+    color: white;
+    border-radius: 5px; 
 }
 

@@ -52,20 +52,22 @@ const mainContentDom = (project) => {
 };
 
 const displayTask = (task, taskPos) => {
-
+    console.log(typeof(task._dueDate));
     const subTask = document.createElement('div');
     if(task._status){
         subTask.className = 'task green-bg';
+    }else if(new Date(task._dueDate) < new Date) {
+        subTask.className = 'task red-bg';
     }else{
         subTask.className = 'task';
     }
-    subTask.setAttribute('data-task', taskPos)
+subTask.setAttribute('data-task', taskPos)
     const mainInfo = document.createElement('div');
     mainInfo.className = 'infos';
     const paragraph = document.createElement('p')
     paragraph.innerHTML = `<i class="lar la-circle"></i> ${task._title} `
     const priority = document.createElement('small');
-    priority.innerText = task._priority;
+    priority.innerText = task._priority+' - Deadline: '+task._dueDate;
     mainInfo.appendChild(paragraph);
     mainInfo.appendChild(priority);
     subTask.appendChild(mainInfo);
