@@ -69,6 +69,7 @@ const displayTask = (task, taskPos) => {
     mainLink2.id = 'task-delete'
     const mainIcons2 = document.createElement('i');
     mainIcons2.className = 'las la-trash';
+
     mainLink2.appendChild(mainIcons2);
 
 

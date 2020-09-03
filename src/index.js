@@ -6,6 +6,7 @@ import {loadTaskForm} from './task_form';
 import {handleProjectForm, handleTaskForm} from './form_handler';
 import Project from './project';
 import Task from './task'
+import {loadTaskUpdateForm} from './task_update_form';
 import {initProjectStorage, getProjects, storeProject, updateProject} from './storage_module';
 
 initProjectStorage();
@@ -55,9 +56,34 @@ const manageTaskForm = (position) => {
         centerContent.appendChild(mainContentDom(project));
         switchProject();
         addTaskEvent(position);
+        addTaskUpdateEvent(position);
         addTaskDeletionEvent(position);
     }else {
         alert('Please provide provide all task informations');
+    } 
+}
+
+const manageUpdateTaskForm = (taskPos, projectPos) => {
+    let valid = handleTaskForm('task-update-form');
+    if (valid){
+        console.log(valid)
+        let project = projects[projectPos]
+        let task = project._tasks[taskPos]
+        task._title = valid.title
+        task._description = valid.description
+        task._dueDate = valid.dueDate
+        task._priority = valid.priority
+        project._tasks[taskPos] = task
+        updateProject(project, projectPos)
+        const maincontent = document.getElementById('container');
+        centerContent.removeChild(maincontent);
+        centerContent.appendChild(mainContentDom(project));
+        switchProject();
+        addTaskEvent(projectPos);
+        addTaskUpdateEvent(projectPos);
+        addTaskDeletionEvent(projectPos);
+    }else {
+        alert('Please provide all task informations');
     } 
 }
 
@@ -106,6 +132,7 @@ const deleteTask = (taskPos, projectPos) => {
     centerContent.appendChild(mainContentDom(project));
     switchProject();
     addTaskDeletionEvent(projectPos);
+    addTaskUpdateEvent(projectPos);
     addTaskEvent(projectPos);
 }
 
@@ -122,7 +149,35 @@ const addTaskDeletionEvent = (position) => {
     }
 }
 
+const updateTask = (taskPos, projectPos) => {
+    let project = projects[projectPos];
+    let task = project._tasks[taskPos];
+    const mainContent = document.getElementById('container');
+    mainContent.innerHTML = '';
+    mainContent.appendChild(loadTaskUpdateForm(projectPos, task).mainHeader);
+    mainContent.appendChild(loadTaskUpdateForm(projectPos,task).form);
+
+    const addTask = document.getElementById('updateTask');
+    addTask.addEventListener('click', () => manageUpdateTaskForm(taskPos, projectPos));
+        
+}
+
+const addTaskUpdateEvent = (position) => {
+    let project = projects[position];
+    if(project._tasks.length > 0){ 
+        const updateButtons = document.querySelectorAll('#task-update');
+        updateButtons.forEach(button => {
+            let taskPosition = button.parentElement.parentElement.getAttribute('data-task');
+            button.addEventListener('click', () => updateTask(taskPosition, position));
+
+        })
+        
+    }
+}
+
 addTaskDeletionEvent(0);
+addTaskUpdateEvent(0);
+
 
 
 const switchProject = () => {
