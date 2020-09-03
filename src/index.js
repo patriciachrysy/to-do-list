@@ -26,8 +26,6 @@ content.appendChild(centerContent);
 const addProjectForm = document.getElementById('addForm');
 
 
-console.log(document.querySelectorAll('#add-task'))
-
 const manageForm = () => {
     let valid = handleProjectForm('project-form');
     if (valid){
@@ -48,7 +46,6 @@ const manageForm = () => {
 const manageTaskForm = (position) => {
     let valid = handleTaskForm('task-form');
     if (valid){
-        console.log(position);
         let task = new Task(valid.title, valid.description, valid.dueDate, valid.priority, false);
         let project = projects[position]
         project._tasks.push(task)
@@ -57,6 +54,8 @@ const manageTaskForm = (position) => {
         centerContent.removeChild(maincontent);
         centerContent.appendChild(mainContentDom(project));
         switchProject();
+        addTaskEvent(position);
+        addTaskDeletionEvent(position);
     }else {
         alert('Please provide provide all task informations');
     } 
@@ -91,7 +90,6 @@ addTaskEvent(0);
 
 
 const loadProject = (position) => {
-    console.log('About to load the project');
     let mainContent = document.getElementById('container');
     centerContent.removeChild(mainContent);
     centerContent.appendChild(mainContentDom(projects[position]));
@@ -107,14 +105,20 @@ const deleteTask = (taskPos, projectPos) => {
     centerContent.removeChild(maincontent);
     centerContent.appendChild(mainContentDom(project));
     switchProject();
+    addTaskDeletionEvent(projectPos);
+    addTaskEvent(projectPos);
 }
 
 const addTaskDeletionEvent = (position) => {
     let project = projects[position];
     if(project._tasks.length > 0){ 
-        const deleteButton = document.getElementById('task-delete');
-        let taskPosition = deleteButton.parentElement.parentElement.getAttribute('data-task');
-        addEventListener('click', () => deleteTask(taskPosition, position));
+        const deleteButtons = document.querySelectorAll('#task-delete');
+        deleteButtons.forEach(button => {
+            let taskPosition = button.parentElement.parentElement.getAttribute('data-task');
+            button.addEventListener('click', () => deleteTask(taskPosition, position));
+
+        })
+        
     }
 }
 
@@ -123,7 +127,6 @@ addTaskDeletionEvent(0);
 
 const switchProject = () => {
     const projectNav = document.querySelectorAll('.project');
-    console.log(projectNav);
     projectNav.forEach(element => {
         element.addEventListener('click', () => loadProject(element.getAttribute('data-position')))
     });
