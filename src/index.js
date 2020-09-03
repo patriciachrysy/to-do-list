@@ -8,7 +8,7 @@ import {handleProjectForm, handleTaskForm} from './form_handler';
 import Project from './project';
 import Task from './task'
 import {loadTaskUpdateForm} from './task_update_form';
-import {initProjectStorage, getProjects, storeProject, updateProject} from './storage_module';
+import {initProjectStorage, getProjects, storeProject, updateProject, deleteProject} from './storage_module';
 
 initProjectStorage();
 
@@ -46,6 +46,7 @@ const manageForm = () => {
         addTaskDeletionEvent(projects.length - 1);
         addTaskStatusUpdateEvent(projects.length - 1);
         addProjectUpdateEvent(projects.length - 1);
+        addProjectDeletionEvent(projects.length -1);
     }else {
         alert('Please provide a name for the project');
     } 
@@ -69,6 +70,7 @@ const manageUpdateProjectForm = (position) => {
         addTaskDeletionEvent(position);
         addTaskStatusUpdateEvent(position);
         addProjectUpdateEvent(position);
+        addProjectDeletionEvent(position);
     }else {
         alert('Please provide a name for the project');
     } 
@@ -90,6 +92,7 @@ const manageTaskForm = (position) => {
         addTaskDeletionEvent(position);
         addTaskStatusUpdateEvent(position);
         addProjectUpdateEvent(position);
+        addProjectDeletionEvent(position);
     }else {
         alert('Please provide provide all task informations');
     } 
@@ -116,6 +119,7 @@ const manageUpdateTaskForm = (taskPos, projectPos) => {
         addTaskDeletionEvent(projectPos);
         addTaskStatusUpdateEvent(projectPos);
         addProjectUpdateEvent(projectPos);
+        addProjectDeletionEvent(projectPos);
     }else {
         alert('Please provide all task informations');
     } 
@@ -158,6 +162,7 @@ const loadProject = (position) => {
     addTaskUpdateEvent(position);
     addTaskStatusUpdateEvent(position);
     addProjectUpdateEvent(position);
+    addProjectDeletionEvent(position);
 }
 
 const deleteTask = (taskPos, projectPos) => {
@@ -173,7 +178,10 @@ const deleteTask = (taskPos, projectPos) => {
     addTaskEvent(projectPos);
     addTaskStatusUpdateEvent(projectPos);
     addProjectUpdateEvent(projectPos);
+    addProjectDeletionEvent(projectPos);
 }
+
+
 
 const addTaskDeletionEvent = (position) => {
     let project = projects[position];
@@ -187,6 +195,8 @@ const addTaskDeletionEvent = (position) => {
         
     }
 }
+
+
 
 const updateTask = (taskPos, projectPos) => {
     let project = projects[projectPos];
@@ -229,6 +239,7 @@ const updateTaskStatus = (taskPos, projectPos) => {
     addTaskEvent(projectPos);
     addTaskStatusUpdateEvent(projectPos);
     addProjectUpdateEvent(projectPos);
+    addProjectDeletionEvent(projectPos);
 }
 
 const addTaskStatusUpdateEvent = (position) => {
@@ -262,11 +273,41 @@ const addProjectUpdateEvent = (position) => {
     button.addEventListener('click', () => updateCurrentProject(position));
 }
 
+const deleteCurrentProject = (projectPos) => {
+    let project = projects[projectPos];
+    deleteProject(projectPos);
+    projects = getProjects();
+    const maincontent = document.getElementById('container');
+    const sidebar = document.getElementById('project-nav');
+    centerContent.removeChild(maincontent);
+    centerContent.removeChild(sidebar);
+    centerContent.appendChild(sidebarDom(getProjects()))
+    centerContent.appendChild(mainContentDom(projects[0]));
+    switchProject();
+    addTaskDeletionEvent(0);
+    addTaskUpdateEvent(0);
+    addTaskEvent(0);
+    addTaskStatusUpdateEvent(0);
+    addProjectUpdateEvent(0);
+    addProjectDeletionEvent(0);
+}
+
+
+
+const addProjectDeletionEvent = (position) => {
+    let project = projects[position];
+    if(projects.length > 1){
+        let button = document.getElementById('delete-project');
+        button.addEventListener('click', () => deleteCurrentProject(position));
+    }
+    
+}
+
 addTaskDeletionEvent(0);
 addTaskUpdateEvent(0);
 addTaskStatusUpdateEvent(0);
 addProjectUpdateEvent(0);
-
+addProjectDeletionEvent(0);
 
 
 const switchProject = () => {

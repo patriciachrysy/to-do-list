@@ -36,4 +36,10 @@ const countProjects = () => {
     return projects.length;
 }
 
-export {initProjectStorage, getProjects, storeProject, countProjects, updateProject};
+const deleteProject = (position) => {
+    let projects = getProjects();
+    projects.splice(position, 1);
+    localStorage.setItem('projects', JSON.stringify(projects));
+}
+
+export {initProjectStorage, getProjects, storeProject, countProjects, updateProject, deleteProject};

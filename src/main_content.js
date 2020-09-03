@@ -1,3 +1,5 @@
+import {getProjects} from './storage_module'
+
 const mainContentDom = (project) => {
     const mainContent = document.createElement('div');
     mainContent.className = 'main-content';
@@ -12,16 +14,19 @@ const mainContentDom = (project) => {
     iconLink.id = 'update-project'
     const icon = document.createElement('i');
     icon.className = 'las la-pencil-alt';
-    const iconLink2 = document.createElement('a')
-    iconLink2.id = 'delete-project'
-    const icon2 = document.createElement('i');
-    icon2.className = 'las la-trash';
+    if(getProjects().length > 1){
+        const iconLink2 = document.createElement('a')
+        iconLink2.id = 'delete-project'
+        const icon2 = document.createElement('i');
+        icon2.className = 'las la-trash';
+        iconLink2.appendChild(icon2);
+        buttons.appendChild(iconLink2);
 
+    }
+    
     iconLink.appendChild(icon);
-    iconLink2.appendChild(icon2);
     mainHeader.appendChild(headerOne);
     buttons.appendChild(iconLink);
-    buttons.appendChild(iconLink2);
     mainHeader.appendChild(buttons);
     mainContent.appendChild(mainHeader)
 
