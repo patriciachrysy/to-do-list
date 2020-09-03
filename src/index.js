@@ -58,6 +58,7 @@ const manageTaskForm = (position) => {
         addTaskEvent(position);
         addTaskUpdateEvent(position);
         addTaskDeletionEvent(position);
+        addTaskStatusUpdateEvent(position);
     }else {
         alert('Please provide provide all task informations');
     } 
@@ -82,6 +83,7 @@ const manageUpdateTaskForm = (taskPos, projectPos) => {
         addTaskEvent(projectPos);
         addTaskUpdateEvent(projectPos);
         addTaskDeletionEvent(projectPos);
+        addTaskStatusUpdateEvent(projectPos);
     }else {
         alert('Please provide all task informations');
     } 
@@ -121,6 +123,8 @@ const loadProject = (position) => {
     centerContent.appendChild(mainContentDom(projects[position]));
     addTaskEvent(position);
     addTaskDeletionEvent(position);
+    addTaskUpdateEvent(position);
+    addTaskStatusUpdateEvent(position);
 }
 
 const deleteTask = (taskPos, projectPos) => {
@@ -134,6 +138,7 @@ const deleteTask = (taskPos, projectPos) => {
     addTaskDeletionEvent(projectPos);
     addTaskUpdateEvent(projectPos);
     addTaskEvent(projectPos);
+    addTaskStatusUpdateEvent(projectPos);
 }
 
 const addTaskDeletionEvent = (position) => {
@@ -175,8 +180,38 @@ const addTaskUpdateEvent = (position) => {
     }
 }
 
+const updateTaskStatus = (taskPos, projectPos) => {
+    let project = projects[projectPos];
+    let task = project._tasks[taskPos];
+    task._status = !task._status;
+    project._tasks[taskPos] = task;
+    updateProject(project, projectPos);
+    const maincontent = document.getElementById('container');
+    centerContent.removeChild(maincontent);
+    centerContent.appendChild(mainContentDom(project));
+    switchProject();
+    addTaskDeletionEvent(projectPos);
+    addTaskUpdateEvent(projectPos);
+    addTaskEvent(projectPos);
+    addTaskStatusUpdateEvent(projectPos);
+}
+
+const addTaskStatusUpdateEvent = (position) => {
+    let project = projects[position];
+    if(project._tasks.length > 0){ 
+        const statusButtons = document.querySelectorAll('#task-status');
+        statusButtons.forEach(button => {
+            let taskPosition = button.parentElement.parentElement.getAttribute('data-task');
+            button.addEventListener('click', () => updateTaskStatus(taskPosition, position));
+
+        })
+        
+    }
+}
+
 addTaskDeletionEvent(0);
 addTaskUpdateEvent(0);
+addTaskStatusUpdateEvent(0);
 
 
 

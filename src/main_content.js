@@ -40,9 +40,12 @@ const mainContentDom = (project) => {
 const displayTask = (task, taskPos) => {
 
     const subTask = document.createElement('div');
-    subTask.className = 'task';
+    if(task._status){
+        subTask.className = 'task green-bg';
+    }else{
+        subTask.className = 'task';
+    }
     subTask.setAttribute('data-task', taskPos)
-
     const mainInfo = document.createElement('div');
     mainInfo.className = 'infos';
     const paragraph = document.createElement('p')
@@ -63,7 +66,11 @@ const displayTask = (task, taskPos) => {
     const mainLink = document.createElement('a');
     mainLink.id = 'task-status'
     const mainIcons = document.createElement('i');
-    mainIcons.className = 'las la-check-circle';
+    if(task._status){
+        mainIcons.className = 'las la-check-circle';
+    }else{
+        mainIcons.className = 'las la-times-circle';
+    }
     mainLink.appendChild(mainIcons);
     const mainLink2 = document.createElement('a');
     mainLink2.id = 'task-delete'
