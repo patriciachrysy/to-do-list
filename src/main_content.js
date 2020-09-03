@@ -7,13 +7,22 @@ const mainContentDom = (project) => {
 
     const headerOne = document.createElement('h1');
     headerOne.innerText = project._name;
+    const buttons = document.createElement('div');
     const iconLink = document.createElement('a')
+    iconLink.id = 'update-project'
     const icon = document.createElement('i');
     icon.className = 'las la-pencil-alt';
+    const iconLink2 = document.createElement('a')
+    iconLink2.id = 'delete-project'
+    const icon2 = document.createElement('i');
+    icon2.className = 'las la-trash';
 
     iconLink.appendChild(icon);
+    iconLink2.appendChild(icon2);
     mainHeader.appendChild(headerOne);
-    mainHeader.appendChild(iconLink);
+    buttons.appendChild(iconLink);
+    buttons.appendChild(iconLink2);
+    mainHeader.appendChild(buttons);
     mainContent.appendChild(mainHeader)
 
     const mainTask = document.createElement('div');

@@ -2,6 +2,7 @@ import {navbarDom} from "./navbar";
 import {sidebarDom} from "./sidebar";
 import {mainContentDom} from "./main_content";
 import projectForm from './project_form';
+import {loadProjectUpdateForm} from './project_update_form';
 import {loadTaskForm} from './task_form';
 import {handleProjectForm, handleTaskForm} from './form_handler';
 import Project from './project';
@@ -11,7 +12,7 @@ import {initProjectStorage, getProjects, storeProject, updateProject} from './st
 
 initProjectStorage();
 
-const projects = getProjects();
+let projects = getProjects();
 
 const nav = navbarDom(projects.length);
 const content = document.getElementById('content');
@@ -38,7 +39,36 @@ const manageForm = () => {
         centerContent.removeChild(sidebar);
         centerContent.appendChild(sidebarDom(getProjects()))
         centerContent.appendChild(mainContentDom(project));
+        projects = getProjects();
         switchProject();
+        addTaskEvent(projects.length - 1);
+        addTaskUpdateEvent(projects.length - 1);
+        addTaskDeletionEvent(projects.length - 1);
+        addTaskStatusUpdateEvent(projects.length - 1);
+        addProjectUpdateEvent(projects.length - 1);
+    }else {
+        alert('Please provide a name for the project');
+    } 
+}
+
+const manageUpdateProjectForm = (position) => {
+    let valid = handleProjectForm('project-update-form');
+    if (valid){
+        let project = projects[position];
+        project._name = valid;
+        updateProject(project, position);
+        const maincontent = document.getElementById('container');
+        const sidebar = document.getElementById('project-nav');
+        centerContent.removeChild(maincontent);
+        centerContent.removeChild(sidebar);
+        centerContent.appendChild(sidebarDom(getProjects()))
+        centerContent.appendChild(mainContentDom(project));
+        switchProject();
+        addTaskEvent(position);
+        addTaskUpdateEvent(position);
+        addTaskDeletionEvent(position);
+        addTaskStatusUpdateEvent(position);
+        addProjectUpdateEvent(position);
     }else {
         alert('Please provide a name for the project');
     } 
@@ -59,6 +89,7 @@ const manageTaskForm = (position) => {
         addTaskUpdateEvent(position);
         addTaskDeletionEvent(position);
         addTaskStatusUpdateEvent(position);
+        addProjectUpdateEvent(position);
     }else {
         alert('Please provide provide all task informations');
     } 
@@ -84,6 +115,7 @@ const manageUpdateTaskForm = (taskPos, projectPos) => {
         addTaskUpdateEvent(projectPos);
         addTaskDeletionEvent(projectPos);
         addTaskStatusUpdateEvent(projectPos);
+        addProjectUpdateEvent(projectPos);
     }else {
         alert('Please provide all task informations');
     } 
@@ -125,6 +157,7 @@ const loadProject = (position) => {
     addTaskDeletionEvent(position);
     addTaskUpdateEvent(position);
     addTaskStatusUpdateEvent(position);
+    addProjectUpdateEvent(position);
 }
 
 const deleteTask = (taskPos, projectPos) => {
@@ -139,6 +172,7 @@ const deleteTask = (taskPos, projectPos) => {
     addTaskUpdateEvent(projectPos);
     addTaskEvent(projectPos);
     addTaskStatusUpdateEvent(projectPos);
+    addProjectUpdateEvent(projectPos);
 }
 
 const addTaskDeletionEvent = (position) => {
@@ -194,6 +228,7 @@ const updateTaskStatus = (taskPos, projectPos) => {
     addTaskUpdateEvent(projectPos);
     addTaskEvent(projectPos);
     addTaskStatusUpdateEvent(projectPos);
+    addProjectUpdateEvent(projectPos);
 }
 
 const addTaskStatusUpdateEvent = (position) => {
@@ -209,9 +244,28 @@ const addTaskStatusUpdateEvent = (position) => {
     }
 }
 
+const updateCurrentProject = (position) => {
+    let project = projects[position];
+    const mainContent = document.getElementById('container');
+    mainContent.innerHTML = '';
+    mainContent.appendChild(loadProjectUpdateForm(project).mainHeader);
+    mainContent.appendChild(loadProjectUpdateForm(project).form);
+
+    const updTask = document.getElementById('updateProject');
+    updTask.addEventListener('click', () => manageUpdateProjectForm(position));
+        
+}
+
+const addProjectUpdateEvent = (position) => {
+    let project = projects[position];
+    let button = document.getElementById('update-project');
+    button.addEventListener('click', () => updateCurrentProject(position));
+}
+
 addTaskDeletionEvent(0);
 addTaskUpdateEvent(0);
 addTaskStatusUpdateEvent(0);
+addProjectUpdateEvent(0);
 
 
 
