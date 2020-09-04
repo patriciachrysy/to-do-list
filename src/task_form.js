@@ -19,9 +19,9 @@ const loadTaskForm = (position) => {
   textFiled.placeholder = 'Task Title';
   form.appendChild(textFiled);
 
-  const textArea = document.createElement('input');
-  textArea.cols = 30;
-  textArea.rows = 10;
+  const textArea = document.createElement('textarea');
+  textArea.cols = 10;
+  textArea.rows = 4;
   textArea.name = 'description';
   textArea.placeholder = 'Enter Task Description';
   form.appendChild(textArea);
