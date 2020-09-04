@@ -19,9 +19,9 @@ const loadTaskUpdateForm = (position, task) => {
   textFiled.value = task._title;
   form.appendChild(textFiled);
 
-  const textArea = document.createElement('input');
-  textArea.cols = 30;
-  textArea.rows = 10;
+  const textArea = document.createElement('textarea');
+  textArea.cols = 10;
+  textArea.rows = 4;
   textArea.name = 'description';
   textArea.value = task._description;
   form.appendChild(textArea);
