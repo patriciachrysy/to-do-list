@@ -149,7 +149,7 @@ body, p{
 
 .main-content form {
     width: 60%;
-    height: 50%;
+    height: 65%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -157,7 +157,7 @@ body, p{
     font-size: 18px;
 }
 
-.main-content form input, .main-content form select {
+.main-content form input, .main-content form select, .main-content form textarea {
     padding: 10px 20px;
     font-size: 18px;
     background: none;
